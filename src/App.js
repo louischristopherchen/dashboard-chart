@@ -27,9 +27,9 @@ function App() {
         { user_id: userId, app: "dashboard", action: "loaad-data-chart-3", timestamp }
       ]
     )
-    // getDataChart1(userId);
-    // getDataChart2(userId);
-    // getDataTable(userId);
+    getDataChart1(userId);
+    getDataChart2(userId);
+    getDataTable(userId);
   }, [userId])
 
   function getDataChart1(userId) {
