@@ -1,0 +1,101 @@
+.snackbar {
+  /* visibility: hidden; */
+  min-width: 561px;
+  margin-left: -280px;
+  background: #4339F2;
+  color: #fff;
+  border-radius: 12px;
+  padding: 23px 52px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  transform: translateY(200%);
+  transition-timing-function: ease-in;
+  transition: 0.2s;
+}
+
+.show {
+  transform: translateY(0%);
+  transition-timing-function: ease-out;
+  transition: 0.2s;
+}
+
+.button {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 9px 12px 9px 24px;
+  font-size: 16px;
+  line-height: 16px;
+  border-radius: 6px;
+  margin-right: 12px;
+  margin-left: 12px
+}
+
+.button:hover{
+  cursor: pointer;
+}
+
+.middle_inline {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.assign_button {
+  background: #655CFB;
+  width: 167px;
+}
+
+.delete_button {
+  background: #EB5757;
+  width: 135px;
+}
+.fs_18{
+  font-size: 18px;
+}
+.pointer_cursor:hover{
+  cursor: pointer;
+}
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}

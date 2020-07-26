@@ -1,0 +1,28 @@
+.title_dashboard {
+  padding: 40px 40px 20px;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 47px;
+}
+
+.right_to_left{
+  animation: rightleft 2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
+}
+
+@keyframes rightleft {
+  from {transform: translateX(200%);}
+  to {transform: translateX(0%);}
+}
+
+.from_bottom{
+  animation: frombottom 2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
+}
+
+@keyframes frombottom {
+  from {transform: translateY(200%);}
+  to {transform: translateY(0%);}
+}
