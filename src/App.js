@@ -13,10 +13,13 @@ function App() {
   const [showToast, setShowToast] = useState(false);
   const [showToastExtend, setShowToastExtend] = useState(false)
   const [userId] = useState(Math.floor(Math.random() * 2) + 1)
-  const { title_dashboard, right_to_left, from_bottom } = styles;
   const [errorDataChart1, setErrorDataChart1] = useState(false);
   const [errorDataChart2, setErrorDataChart2] = useState(false);
   const [errorDataTable, setErrorDataTable] = useState(false);
+  const [reload, setReload] = useState(false);
+  const [showLogs, setShowLogs] = useState(false);
+  const [logsList, setLogsList] = useState('');
+  const { title_dashboard, right_to_left, from_bottom, reload_button, log_button, log_overlay, log_content } = styles;
 
   useEffect(() => {
     var timestamp = new Date().toISOString()
@@ -31,6 +34,9 @@ function App() {
     getDataChart2(userId);
     getDataTable(userId);
   }, [userId])
+
+
+
 
   function getDataChart1(userId) {
     dataProvider('get', `/chart1/${userId}`).then((res) => {
@@ -158,13 +164,14 @@ function App() {
           { user_id: userId, app: "dashboard", action: "delete", timestamp, data: tempList, components: "float-button" }
         ]
       )
+      setReload(true)
       setShowToast(false);
       unSelectAll()
       getDataTable(userId);
       getDataChart1(userId);
       getDataChart2(userId);
     }).catch(err => {
-      if (err) console.log('error:', err)
+      if (err) console.log_content('error:', err)
     })
 
   }
@@ -197,6 +204,7 @@ function App() {
           { user_id: userId, app: "dashboard", action: "update-category", timestamp, data: tempList, update: { category: text }, components: "toast-extends" }
         ]
       )
+      setReload(true)
       setShowToast(false);
       setShowToastExtend(false)
       unSelectAll()
@@ -205,6 +213,39 @@ function App() {
       if (err) console.log('error:', err)
     })
   }
+
+  function reloadData() {
+    dataProvider('get', `/reload`).then((res) => {
+      var timestamp = new Date().toISOString()
+      trackEvent(
+        [
+          { user_id: userId, app: "dashboard", action: "reload-data", timestamp, components: "button-reload-page" }
+        ]
+      )
+      setReload(false)
+      getDataChart1(userId);
+      getDataChart2(userId);
+      getDataTable(userId);
+    }).catch(err => {
+      if (err) console.log('error:', err)
+    })
+  }
+
+  function getLogs() {
+    dataProvider('get', `/logs/${userId}`).then((res) => {
+      var timestamp = new Date().toISOString()
+      trackEvent(
+        [
+          { user_id: userId, app: "dashboard", action: "reload-data", timestamp, components: "button-reload-page" }
+        ]
+      )
+      setLogsList(JSON.stringify(res))
+      setShowLogs(true)
+    }).catch(err => {
+      if (err) console.log('error:', err)
+    })
+  }
+
   const cols = [
     {
       title: 'Name',
@@ -236,11 +277,21 @@ function App() {
   ];
 
   return (
-    <div>
+    <div style={{ width: '1280px' }}>
       <div className={right_to_left}>
-        <div className={title_dashboard}>
+        <div className={title_dashboard} >
           Charts Visualization
-      </div>
+            <div style={{ float: "right" }}>
+            {reload && <div className={reload_button} onClick={reloadData}>
+              Reload Data
+            </div>}
+
+            <div className={log_button} onClick={getLogs}>
+              Logs
+            </div>
+          </div>
+        </div>
+
         <div className="container">
           <div style={{ width: '590px', display: 'inline-block' }}>
             <HorizontalBarChart label={'Chart 1'} data={dataHorizontalBar} pattern={['O1', 'O2', 'O3', 'O4', 'O5', 'O6', 'O7', 'O8', 'O9']} errorDataChart={errorDataChart1} />
@@ -260,7 +311,14 @@ function App() {
         <Table cols={cols} list={list} selecOne={selectOne} checkedAll={checkedAll} selectAll={selectAll} errorDataTable={errorDataTable} />
       </div>
       <Toast showToast={showToast} list={list} unSelectAll={unSelectAll} doDelete={doDelete} openToastExtend={openToastExtend} />
-
+      {showLogs && <div >
+        <div className={log_overlay} onClick={() => { setShowLogs(false) }}>
+        </div>
+        <div className={log_content}>
+          Logs <br/>
+          {logsList}
+        </div>
+      </div>}
       {showToastExtend && <ToastExtend closeToastExtend={closeToastExtend} updateCategory={updateCategory} />}
     </div>
   );

@@ -1,28 +1,116 @@
 .title_dashboard {
   padding: 40px 40px 20px;
   font-weight: 500;
+  height: 60px;
   font-size: 36px;
   line-height: 47px;
+  width: 1200px;
 }
 
-.right_to_left{
+.reload_button {
+  display: inline-block;
+  font-size: 15px;
+  border-radius: 10px;
+  background: #4339F2;
+  padding:1px 8px;
+  word-wrap: break-word;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+  animation: fadein 5s;
+  margin-right: 16px;
+}
+
+.log_button {
+  display: inline-block;
+  background: #FF3A29;
+  color:#fff;
+  border-radius: 10px;
+  padding:1px 8px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.log_content {
+  /* visibility: hidden; */
+  min-width: 300px;
+  max-width: 800px;
+  height: 700px;
+  margin-left: -180px;
+  background: #fff;
+  font-size: 16px;
+  border-radius: 12px;
+  padding:15px;
+  position: fixed;
+  z-index: 4;
+  left: 20%;
+  top: 20%;
+  overflow-x: scroll;
+}
+
+.log_overlay{
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+}
+
+/* .fadeout_reload {
+  animation: fadeout 5s;
+  animation-fill-mode: forwards;
+  cursor: default;
+} */
+
+.right_to_left {
   animation: rightleft 2s;
   animation-fill-mode: forwards;
   animation-timing-function: ease;
 }
 
 @keyframes rightleft {
-  from {transform: translateX(200%);}
-  to {transform: translateX(0%);}
+  from {
+    transform: translateX(200%);
+  }
+  to {
+    transform: translateX(0%);
+  }
 }
 
-.from_bottom{
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* @keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+} */
+
+.from_bottom {
   animation: frombottom 2s;
   animation-fill-mode: forwards;
   animation-timing-function: ease;
 }
 
 @keyframes frombottom {
-  from {transform: translateY(200%);}
-  to {transform: translateY(0%);}
+  from {
+    transform: translateY(200%);
+  }
+  to {
+    transform: translateY(0%);
+  }
 }
