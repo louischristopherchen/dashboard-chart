@@ -35,7 +35,11 @@ function App() {
     getDataTable(userId);
   }, [userId])
 
-
+  useEffect(() => {
+    if(!list.length){
+      setReload(true)
+    }
+  },[list])
 
 
   function getDataChart1(userId) {
@@ -315,7 +319,7 @@ function App() {
         <div className={log_overlay} onClick={() => { setShowLogs(false) }}>
         </div>
         <div className={log_content}>
-          Logs <br/>
+          Logs <br />
           {logsList}
         </div>
       </div>}
